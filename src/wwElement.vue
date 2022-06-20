@@ -59,7 +59,6 @@ export default {
   data() {
     return {
       internalValue: [15, 65],
-      wwTextStyle: [],
     };
   },
   computed: {
@@ -74,9 +73,6 @@ export default {
     },
     value() {
       return this.variableValue;
-    },
-    diabled() {
-      return this.isEditing ? true : content.disabled;
     },
     // getTextSyle() {
     //   const styles = {};
