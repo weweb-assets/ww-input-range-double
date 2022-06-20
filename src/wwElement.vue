@@ -4,27 +4,24 @@
     :class="{ editing: isEditing }"
     :style="globalOverridableSliderStyle"
   >
-    <div class="ww-form-input-range__spacing">
-      <Slider
-        class="slider"
-        v-model="internalValue"
-        :min="content.min"
-        :max="content.max"
-        :step="content.step"
-        :tooltips="content.isTooltip"
-        :show-tooltip="content.showTooltipOn"
-        :tooltip-position="content.tooltipPosition"
-        :disabled="content.disabled"
-        :merge="25"
-        :format="{
-          prefix: content.prefix,
-          suffix: content.suffix,
-        }"
-        :style="{ ...overridableSliderStyle /* ...getTextSyle */ }"
-      >
-      </Slider>
-    </div>
-    {{ content.fontFamily }}
+    <Slider
+      class="slider"
+      v-model="internalValue"
+      :min="content.min"
+      :max="content.max"
+      :step="content.step"
+      :tooltips="content.isTooltip"
+      :show-tooltip="content.showTooltipOn"
+      :tooltip-position="content.tooltipPosition"
+      :disabled="content.disabled"
+      :merge="25"
+      :format="{
+        prefix: content.prefix,
+        suffix: content.suffix,
+      }"
+      :style="{ ...overridableSliderStyle /* ...getTextSyle */ }"
+    >
+    </Slider>
   </div>
 </template>
 
@@ -172,9 +169,6 @@ export default {
 
 <style lang="scss" scoped>
 .ww-form-input-range {
-  &__spacing {
-    padding: 2%;
-  }
   &.editing {
     pointer-events: none;
   }
