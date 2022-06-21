@@ -13,7 +13,7 @@ export const overridablePropertiesOrder = [
     "tooltipDistance",
   ],
   ["fontSize", "fontFamily", "fontWeight", "lineHeight"],
-  -[
+  [
     "handleBg",
     "handleWidth",
     "handleHeight",

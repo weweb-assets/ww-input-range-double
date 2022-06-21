@@ -1,27 +1,29 @@
 <template>
   <div
-    class="ww-form-input-range"
+    class="ww-form-input-range-double"
     :class="{ editing: isEditing }"
     :style="globalOverridableSliderStyle"
   >
-    <Slider
-      class="slider"
-      v-model="internalValue"
-      :min="content.min"
-      :max="content.max"
-      :step="content.step"
-      :tooltips="content.isTooltip"
-      :show-tooltip="content.showTooltipOn"
-      :tooltip-position="content.tooltipPosition"
-      :disabled="content.disabled"
-      :merge="25"
-      :format="{
-        prefix: content.prefix,
-        suffix: content.suffix,
-      }"
-      :style="overridableSliderStyle"
-    >
-    </Slider>
+    <div class="spacing">
+      <Slider
+        class="slider"
+        v-model="internalValue"
+        :min="content.min"
+        :max="content.max"
+        :step="content.step"
+        :tooltips="content.isTooltip"
+        :show-tooltip="content.showTooltipOn"
+        :tooltip-position="content.tooltipPosition"
+        :disabled="content.disabled"
+        :merge="25"
+        :format="{
+          prefix: content.prefix,
+          suffix: content.suffix,
+        }"
+        :style="overridableSliderStyle"
+      >
+      </Slider>
+    </div>
   </div>
 </template>
 
@@ -133,6 +135,8 @@ export default {
       });
     },
     "content.initValueFrom"(newValue) {
+      newValue = parseFloat(newValue);
+      if (isNaN(newValue)) newValue = 0;
       if (newValue === this.value.from) return;
       this.internalValue = [newValue, this.internalValue[1]];
       this.value = {
@@ -141,6 +145,8 @@ export default {
       };
     },
     "content.initValueTo"(newValue) {
+      newValue = parseFloat(newValue);
+      if (isNaN(newValue)) newValue = 0;
       if (newValue === this.value.to) return;
       this.internalValue = [this.internalValue[0], newValue];
       this.value = {
@@ -156,6 +162,9 @@ export default {
 
 <style lang="scss" scoped>
 .ww-form-input-range {
+  .spacing {
+    padding: 0.5rem 0;
+  }
   &.editing {
     pointer-events: none;
   }
