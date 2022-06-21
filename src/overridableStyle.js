@@ -2,17 +2,6 @@ export const overridablePropertiesOrder = [
   ["sliderBg", "sliderConnectBg", "sliderConnectBgDisabled"],
   ["sliderHeight", "sliderRadius"],
   [
-    "handleBg",
-    "handleBorder",
-    "handleWidth",
-    "handleHeight",
-    "handleRadius",
-    "handleShadow",
-    "handleShadowActive",
-    "handleRingWidth",
-    "handleRingColor",
-  ],
-  [
     "tooltipFontSize",
     "tooltipColor",
     "tooltipBgColor",
@@ -24,23 +13,34 @@ export const overridablePropertiesOrder = [
     "tooltipDistance",
   ],
   ["fontSize", "fontFamily", "fontWeight", "lineHeight"],
+  -[
+    "handleBg",
+    "handleWidth",
+    "handleHeight",
+    "handleRadius",
+    "handleBorderWidth",
+    "handleBorderColor",
+    "handleShadow",
+    "handleRingWidth",
+    "handleRingColor",
+  ],
 ];
 
 export const overridableStyle = {
-  sliderBg: {
-    label: { en: "Slider background", fr: "Slider background" },
-    type: "Color",
-    defaultValue: "#D1D5DB",
-  },
   sliderConnectBg: {
-    label: { en: "Slider connect background", fr: "Slider connect background" },
+    label: { en: "Slider color", fr: "Slider color" },
     type: "Color",
     defaultValue: "#10B981",
   },
+  sliderBg: {
+    label: { en: "Slider background color", fr: "Slider background color" },
+    type: "Color",
+    defaultValue: "#D1D5DB",
+  },
   sliderConnectBgDisabled: {
     label: {
-      en: "Slider connect background - disabled",
-      fr: "Slider connect background - disabled",
+      en: "Slider color - disabled",
+      fr: "Slider color - disabled",
     },
     type: "Color",
     defaultValue: "#9CA3AF",
@@ -72,13 +72,24 @@ export const overridableStyle = {
     type: "Color",
     defaultValue: "#FFFFFF",
   },
-  handleBorder: {
-    type: "Number",
+  handleBorderWidth: {
+    type: "Length",
     label: {
-      en: "Handle border",
-      fr: "Handle border",
+      en: "Handle border width",
+      fr: "Handle border width",
     },
-    defaultValue: 0,
+    options: {
+      unitChoices: [{ value: "px", label: "px", min: 1, max: 100 }],
+    },
+    defaultValue: "0px",
+  },
+  handleBorderColor: {
+    type: "Color",
+    label: {
+      en: "Handle border color",
+      fr: "Handle border color",
+    },
+    defaultValue: "#FFFFFF",
   },
   handleWidth: {
     type: "Length",
@@ -124,17 +135,6 @@ export const overridableStyle = {
     },
     defaultValue: "0.5px 0.5px 2px 1px rgba(0,0,0,.32)",
   },
-  handleShadowActive: {
-    type: "Shadows",
-    label: {
-      en: "Handle shadow active",
-      fr: "Handle shadow active",
-    },
-    options: {
-      isText: true,
-    },
-    defaultValue: "0.5px 0.5px 2px 1px rgba(0,0,0,.42)",
-  },
   handleRingWidth: {
     type: "Length",
     label: {
@@ -166,8 +166,8 @@ export const overridableStyle = {
   tooltipBgColorDisabled: {
     hidden: (content) => !content.isTooltip,
     label: {
-      en: "Tooltip background disabled",
-      fr: "Tooltip background disabled",
+      en: "Tooltip background color - disabled",
+      fr: "Tooltip background color - disabled",
     },
     type: "Color",
     defaultValue: "#9CA3AF",
@@ -235,7 +235,7 @@ export const overridableStyle = {
   fontSize: {
     hidden: (content) => !content.isTooltip,
     label: {
-      en: "Tooltip front size",
+      en: "Tooltip font size",
       fr: "Taille",
     },
     type: "Length",

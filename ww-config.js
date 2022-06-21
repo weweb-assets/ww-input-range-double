@@ -28,7 +28,7 @@ export default {
   properties: {
     initValueFrom: {
       label: {
-        en: "Start init from",
+        en: "Init from value",
       },
       type: "Number",
       options: (content) => ({ min: 0, max: content.max }),
@@ -38,7 +38,7 @@ export default {
     },
     initValueTo: {
       label: {
-        en: "End init to",
+        en: "Init to value",
       },
       type: "Number",
       options: (content) => ({ min: 0, max: content.max }),

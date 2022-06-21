@@ -19,7 +19,7 @@
         prefix: content.prefix,
         suffix: content.suffix,
       }"
-      :style="{ ...overridableSliderStyle /* ...getTextSyle */ }"
+      :style="overridableSliderStyle"
     >
     </Slider>
   </div>
@@ -71,22 +71,9 @@ export default {
     value() {
       return this.variableValue;
     },
-    // getTextSyle() {
-    //   const styles = {};
-    //   const id = "_ww-text_";
-    //   const toExclude = ["text", "links"];
-    //   const properties = Object.keys(this.content).filter((prop) =>
-    //     prop.startsWith(id)
-    //   );
-
-    //   for (let prop of properties) {
-    //     const propName = prop.split(id)[1];
-    //     if (toExclude.includes(propName)) continue;
-    //     styles[propName] = this.content[prop];
-    //   }
-
-    //   return styles;
-    // },
+    handleBorder() {
+      return `${this.content.handleBorderWidth} solid ${this.content.handleBorderColor}`;
+    },
     globalOverridableSliderStyle() {
       return {
         "--slider-tooltip-font-family": this.content.fontFamily,
@@ -106,7 +93,7 @@ export default {
 
         // Slider handle
         "--slider-handle-bg": this.content.handleBg,
-        "--slider-handle-border": this.content.handleBorder,
+        "--slider-handle-border": this.handleBorder,
         "--slider-handle-width": this.content.handleWidth,
         "--slider-handle-height": this.content.handleHeight,
         "--slider-handle-radius": this.content.handleRadius,
