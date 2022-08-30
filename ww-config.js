@@ -23,7 +23,7 @@ export default {
     ],
   },
   triggerEvents: [
-    { name: "change", label: { en: "On change" }, event: { value: "" } },
+    { name: "change", label: { en: "On change" }, event: { value: "" }, default: true },
   ],
   properties: {
     initValueFrom: {
