@@ -7,7 +7,7 @@
     <div class="spacing">
       <Slider
         class="slider"
-        v-model="internalValue"
+        v-model="value"
         :min="content.min"
         :max="content.max"
         :step="content.step"
@@ -46,19 +46,12 @@ export default {
       wwLib.wwVariable.useComponentVariable({
         uid: props.uid,
         name: "value",
-        type: "object",
+        type: "array",
         defaultValue:
-          props.content.value === undefined
-            ? { from: 15, to: 65 }
-            : props.content.value,
+          props.content.value === undefined ? [15, 65] : props.content.value,
       });
 
     return { variableValue, setValue };
-  },
-  data() {
-    return {
-      internalValue: [15, 65],
-    };
   },
   computed: {
     isEditing() {
@@ -70,8 +63,18 @@ export default {
       // eslint-disable-next-line no-unreachable
       return false;
     },
-    value() {
-      return this.variableValue;
+    value: {
+      get() {
+        return this.variableValue;
+      },
+      set(newValue) {
+        if (_.isEqual(newValue, this.value)) return;
+        this.setValue(newValue);
+        this.$emit("trigger-event", {
+          name: "change",
+          event: { value: newValue },
+        });
+      },
     },
     handleBorder() {
       return `${this.content.handleBorderWidth} solid ${this.content.handleBorderColor}`;
@@ -122,37 +125,17 @@ export default {
     },
   },
   watch: {
-    internalValue(newValue) {
-      newValue = {
-        from: newValue[0],
-        to: newValue[1],
-      };
-      if (_.isEqual(newValue, this.value)) return;
-      this.setValue(newValue);
-      this.$emit("trigger-event", {
-        name: "change",
-        event: { value: newValue },
-      });
-    },
     "content.initValueFrom"(newValue) {
       newValue = parseFloat(newValue);
       if (isNaN(newValue)) newValue = 0;
       if (newValue === this.value.from) return;
-      this.internalValue = [newValue, this.internalValue[1]];
-      this.value = {
-        from: newValue,
-        to: this.value.end,
-      };
+      this.value = this.internalValue = [newValue, this.internalValue[1]];
     },
     "content.initValueTo"(newValue) {
       newValue = parseFloat(newValue);
       if (isNaN(newValue)) newValue = 0;
       if (newValue === this.value.to) return;
-      this.internalValue = [this.internalValue[0], newValue];
-      this.value = {
-        from: this.value.start,
-        to: newValue,
-      };
+      this.value = this.internalValue = [this.internalValue[0], newValue];
     },
   },
 };
@@ -167,6 +150,7 @@ export default {
   }
   &.editing {
     pointer-events: none;
+    border: 3px solid red;
   }
 }
 </style>
