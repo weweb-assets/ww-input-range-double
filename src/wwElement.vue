@@ -65,7 +65,10 @@ export default {
     },
     value: {
       get() {
-        return this.variableValue;
+        return [
+          parseFloat(this.variableValue[0]) || 0,
+          parseFloat(this.variableValue[1]) || 0,
+        ];
       },
       set(newValue) {
         if (_.isEqual(newValue, this.value)) return;
@@ -129,13 +132,13 @@ export default {
       newValue = parseFloat(newValue);
       if (isNaN(newValue)) newValue = 0;
       if (newValue === this.value.from) return;
-      this.value = this.internalValue = [newValue, this.internalValue[1]];
+      this.value = [newValue, this.variableValue[1]];
     },
     "content.initValueTo"(newValue) {
       newValue = parseFloat(newValue);
       if (isNaN(newValue)) newValue = 0;
       if (newValue === this.value.to) return;
-      this.value = this.internalValue = [this.internalValue[0], newValue];
+      this.value = [this.variableValue[0], newValue];
     },
   },
 };
@@ -148,10 +151,12 @@ export default {
   .spacing {
     padding: 0.5rem 0;
   }
+
+  /* wwEditor:start */
   &.editing {
     pointer-events: none;
-    border: 3px solid red;
   }
+  /* wwEditor:end */
 }
 </style>
 
